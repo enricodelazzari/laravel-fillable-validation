@@ -2,9 +2,9 @@
 
 namespace Maize\FillableValidation;
 
+use Maize\FillableValidation\Commands\FillableValidationCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Maize\FillableValidation\Commands\FillableValidationCommand;
 
 class FillableValidationServiceProvider extends PackageServiceProvider
 {
