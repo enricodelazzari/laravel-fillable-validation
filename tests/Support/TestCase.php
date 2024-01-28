@@ -1,8 +1,9 @@
 <?php
 
-namespace Maize\FillableValidation\Tests;
+namespace Maize\FillableValidation\Tests\Support;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 use Maize\FillableValidation\FillableValidationServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
@@ -11,10 +12,6 @@ class TestCase extends Orchestra
     protected function setUp(): void
     {
         parent::setUp();
-
-        Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Maize\\FillableValidation\\Database\\Factories\\'.class_basename($modelName).'Factory'
-        );
     }
 
     protected function getPackageProviders($app)
@@ -28,9 +25,9 @@ class TestCase extends Orchestra
     {
         config()->set('database.default', 'testing');
 
-        /*
-        $migration = include __DIR__.'/../database/migrations/create_laravel-fillable-validation_table.php.stub';
-        $migration->up();
-        */
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+        });
     }
 }

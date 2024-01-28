@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "spatie/laravel-package-tools": "^1.14.0",
         "illuminate/contracts": "^10.0"
     },
@@ -35,14 +35,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Maize\\FillableValidation\\": "src/",
-            "Maize\\FillableValidation\\Database\\Factories\\": "database/factories/"
+            "Maize\\FillableValidation\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Maize\\FillableValidation\\Tests\\": "tests/",
-            "Workbench\\App\\": "workbench/app/"
+            "Maize\\FillableValidation\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -74,10 +72,7 @@
         "laravel": {
             "providers": [
                 "Maize\\FillableValidation\\FillableValidationServiceProvider"
-            ],
-            "aliases": {
-                "FillableValidation": "Maize\\FillableValidation\\Facades\\FillableValidation"
-            }
+            ]
         }
     },
     "minimum-stability": "dev",
