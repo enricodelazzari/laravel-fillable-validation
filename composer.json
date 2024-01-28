@@ -1,17 +1,17 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "maize-tech/laravel-fillable-validation",
+    "description": "This is my package laravel-fillable-validation",
     "keywords": [
-        ":vendor_name",
+        "Maize",
         "laravel",
-        ":package_slug"
+        "laravel-fillable-validation"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/maize-tech/laravel-fillable-validation",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Enrico De Lazzari",
+            "email": "enrico.delazzari@maize.io",
             "role": "Developer"
         }
     ],
@@ -35,19 +35,19 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "Maize\\FillableValidation\\": "src/",
+            "Maize\\FillableValidation\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/",
+            "Maize\\FillableValidation\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
     "scripts": {
         "post-autoload-dump": "@composer run prepare",
-        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "clear": "@php vendor/bin/testbench package:purge-laravel-fillable-validation --ansi",
         "prepare": "@php vendor/bin/testbench package:discover --ansi",
         "build": [
             "@composer run prepare",
@@ -73,10 +73,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Maize\\FillableValidation\\FillableValidationServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "FillableValidation": "Maize\\FillableValidation\\Facades\\FillableValidation"
             }
         }
     },
