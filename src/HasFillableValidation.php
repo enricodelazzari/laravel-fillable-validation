@@ -3,42 +3,70 @@
 namespace Maize\FillableValidation;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use InvalidArgumentException;
 
 trait HasFillableValidation
 {
-    protected static function bootHasFillableValidation(): void
+    protected function initializeHasFillableValidation(): void
     {
-        static::saving(fn (Model $model) => $model->validate());
+        $this->fillable(
+            array_keys($this->rules)
+        );
     }
 
-    /**
-     * @return array<string>
-     */
-    public function getFillable(): array
+    protected static function bootHasFillableValidation(): void
     {
-        return array_is_list($this->fillable)
-            ? $this->fillable
-            : array_keys($this->fillable);
+        static::saving(function (Model $model) {
+            $model->prepareForValidation();
+            $model->validate();
+        });
+    }
+
+    protected function getRules(): array
+    {
+        if (! property_exists($this, 'rules')) {
+            return [];
+        }
+
+        if (! is_array($this->rules)) {
+            throw new InvalidArgumentException();
+        }
+
+        if (array_is_list($this->rules)) {
+            throw new InvalidArgumentException();
+        }
+
+        return $this->rules;
+    }
+
+    protected function getRulesMessages(): array
+    {
+        return [];
+    }
+
+    protected function getRulesAttributes(): array
+    {
+        return [];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        //
     }
 
     /**
      * @throws ValidationException
      */
-    public function validate(
-        ?array $data = null,
-        array $rules = [],
-        array $messages = [],
-        array $attributes = [],
-    ): self {
-        $data ??= $this->getAttributes();
+    public function validate(): self
+    {
+        validator(
+            data: $this->getAttributes(),
+            rules: $this->getRules(),
+            messages: $this->getRulesMessages(),
+            attributes: $this->getRulesAttributes()
+        )->validate();
 
-        if (! array_is_list($this->fillable)) {
-            $rules = array_merge($this->fillable, $rules);
-            Validator::make($data, $rules, $messages, $attributes)->validate();
-        }
-
-        return $this->fill($data);
+        return $this;
     }
 }

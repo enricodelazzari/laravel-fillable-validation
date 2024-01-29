@@ -25,8 +25,10 @@ class TestCase extends Orchestra
     {
         config()->set('database.default', 'testing');
 
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('articles', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            // $table->string('body');
             $table->timestamps();
         });
     }
