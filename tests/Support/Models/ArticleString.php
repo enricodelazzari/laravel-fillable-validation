@@ -5,11 +5,13 @@ namespace Maize\FillableValidation\Tests\Support\Models;
 use Illuminate\Database\Eloquent\Model;
 use Maize\FillableValidation\HasFillableValidation;
 
-class Article extends Model
+class ArticleString extends Model
 {
     use HasFillableValidation;
 
+    protected $table = 'articles';
+
     protected array $rules = [
-        'title' => 'required',
+        'title' => 'required|string',
     ];
 }
