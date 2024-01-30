@@ -7,14 +7,6 @@
 
 This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
 
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/laravel-fillable-validation.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/laravel-fillable-validation)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
-
 ## Installation
 
 You can install the package via composer:
@@ -23,37 +15,73 @@ You can install the package via composer:
 composer require maize-tech/laravel-fillable-validation
 ```
 
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="laravel-fillable-validation-migrations"
-php artisan migrate
-```
-
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag="laravel-fillable-validation-config"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="laravel-fillable-validation-views"
-```
-
 ## Usage
 
 ```php
-$fillableValidation = new Maize\FillableValidation();
-echo $fillableValidation->echoPhrase('Hello, Maize!');
+<?php
+
+namespace App\Models;
+
+use App\Enums\Status;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Validation\Rule;
+use Maize\FillableValidation\HasFillableValidation;
+
+class Article extends Model
+{
+    use HasFillableValidation;
+
+    protected array $rules = [
+        'title' => 'required|string',
+        'body' => 'required|string',
+        'status' => [Rule::enum(Status::class)],
+    ];
+}
+
+Article::create([
+	'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+	'status' => Status::draft
+]); // fail: missing title
+
+$article = Article::create([
+	'title' => 'Laravel package',
+	'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+	'status' => Status::draft
+]);
+
+$article->update([
+	'title' => 'Laravel validation',
+	'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+	'status' => Status::draft
+]);
+
+$article->update([
+	'title' => 'Laravel validation',
+	'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+	'status' => null
+]); // fail: invalid status
+
+
+<?php
+
+namespace App\Models;
+
+use App\Enums\Status;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Validation\Rule;
+use Maize\FillableValidation\HasFillableValidation;
+
+class Article extends Model implements WithoutAutoValidation
+{
+    use HasFillableValidation;
+
+    protected array $rules = [
+        'title' => 'required|string',
+        'body' => 'required|string',
+        'status' => [Rule::enum(Status::class)],
+    ];
+}
+
 ```
 
 ## Testing
