@@ -5,6 +5,7 @@ namespace Maize\FillableValidation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\ValidationException;
 use InvalidArgumentException;
+use Maize\FillableValidation\Contracts\WithoutAutoValidation;
 
 trait HasFillableValidation
 {
@@ -18,7 +19,9 @@ trait HasFillableValidation
     protected static function bootHasFillableValidation(): void
     {
         static::saving(function (Model $model) {
-            $model->prepareForValidation();
+            if ($model instanceof WithoutAutoValidation) {
+                return;
+            }
             $model->validate();
         });
     }
@@ -60,6 +63,8 @@ trait HasFillableValidation
      */
     public function validate(): self
     {
+        $this->prepareForValidation();
+
         validator(
             data: $this->getAttributes(),
             rules: $this->getRules(),
