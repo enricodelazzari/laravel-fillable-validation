@@ -39,26 +39,26 @@ class Article extends Model
 }
 
 Article::create([
-	'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-	'status' => Status::draft
+    'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    'status' => Status::draft
 ]); // fail: missing title
 
 $article = Article::create([
-	'title' => 'Laravel package',
-	'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-	'status' => Status::draft
+    'title' => 'Laravel package',
+    'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    'status' => Status::draft
 ]);
 
 $article->update([
-	'title' => 'Laravel validation',
-	'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-	'status' => Status::draft
+    'title' => 'Laravel validation',
+    'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    'status' => Status::draft
 ]);
 
 $article->update([
-	'title' => 'Laravel validation',
-	'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-	'status' => null
+    'title' => 'Laravel validation',
+    'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    'status' => null
 ]); // fail: invalid status
 
 
