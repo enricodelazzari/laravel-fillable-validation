@@ -4,15 +4,18 @@ namespace Maize\FillableValidation;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\ValidationException;
-use InvalidArgumentException;
 use Maize\FillableValidation\Contracts\WithoutAutoValidation;
 
 trait HasFillableValidation
 {
+    protected Rules $rules;
+
     protected function initializeHasFillableValidation(): void
     {
+        $this->rules = $this->rules();
+
         $this->fillable(
-            array_keys($this->rules)
+            $this->rules->getKeys()
         );
     }
 
@@ -24,23 +27,6 @@ trait HasFillableValidation
             }
             $model->validate();
         });
-    }
-
-    protected function getRules(): array
-    {
-        if (! property_exists($this, 'rules')) {
-            return [];
-        }
-
-        if (! is_array($this->rules)) {
-            throw new InvalidArgumentException();
-        }
-
-        if (array_is_list($this->rules)) {
-            throw new InvalidArgumentException();
-        }
-
-        return $this->rules;
     }
 
     protected function getRulesMessages(): array
@@ -67,7 +53,7 @@ trait HasFillableValidation
 
         validator(
             data: $this->getAttributes(),
-            rules: $this->getRules(),
+            rules: $this->rules->toArray(),
             messages: $this->getRulesMessages(),
             attributes: $this->getRulesAttributes()
         )->validate();

@@ -4,6 +4,7 @@ namespace Maize\FillableValidation\Tests\Support\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Maize\FillableValidation\HasFillableValidation;
+use Maize\FillableValidation\Rules;
 
 class ArticleArray extends Model
 {
@@ -11,10 +12,13 @@ class ArticleArray extends Model
 
     protected $table = 'articles';
 
-    protected array $rules = [
-        'title' => [
-            'required',
-            'string',
-        ],
-    ];
+    public function rules(): Rules
+    {
+        return Rules::make([
+            'title' => [
+                'required',
+                'string',
+            ],
+        ]);
+    }
 }

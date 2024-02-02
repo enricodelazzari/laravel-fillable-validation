@@ -1,4 +1,4 @@
-# Laravel fillable validation
+# Laravel Fillable Validation
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/maize-tech/laravel-fillable-validation.svg?style=flat-square)](https://packagist.org/packages/maize-tech/laravel-fillable-validation)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/maize-tech/laravel-fillable-validation/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/maize-tech/laravel-fillable-validation/actions?query=workflow%3Arun-tests+branch%3Amain)

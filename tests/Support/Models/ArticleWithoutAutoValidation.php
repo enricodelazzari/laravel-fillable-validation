@@ -5,6 +5,7 @@ namespace Maize\FillableValidation\Tests\Support\Models;
 use Illuminate\Database\Eloquent\Model;
 use Maize\FillableValidation\Contracts\WithoutAutoValidation;
 use Maize\FillableValidation\HasFillableValidation;
+use Maize\FillableValidation\Rules;
 
 class ArticleString extends Model implements WithoutAutoValidation
 {
@@ -12,7 +13,10 @@ class ArticleString extends Model implements WithoutAutoValidation
 
     protected $table = 'articles';
 
-    protected array $rules = [
-        'title' => 'required|string',
-    ];
+    public function rules(): Rules
+    {
+        return Rules::make([
+            'title' => 'required|string',
+        ]);
+    }
 }
